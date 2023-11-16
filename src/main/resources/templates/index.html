@@ -5,6 +5,14 @@
 <nav th:replace="~{fragments :: navigation}"></nav>
 <h2 th:text="${pageTitle}"></h2>
 
+<div class="container">
+    <div class="row">
+        <ul>
+            <li th:each="petition : ${petitions}" th:text="${petition}"></li>
+        </ul>
+    </div>
+</div>
+
 <footer th:replace="~{fragments :: footer}"></footer>
 </body>
 </html>

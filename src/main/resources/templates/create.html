@@ -3,7 +3,26 @@
 <head th:replace="~{fragments :: head}"></head>
 <body>
 <nav th:replace="~{fragments :: navigation}"></nav>
-<h2 th:text="create"></h2>
+<h2 th:text="${pageTitle}"></h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Create a Petition</h4>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="petitionTitle" class="form-label">Petition Title</label>
+                            <input type="text" class="form-control" id="petitionTitle" name="petitionTitle"  required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <footer th:replace="~{fragments :: footer}"></footer>
 </body>
