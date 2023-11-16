@@ -22,4 +22,18 @@ public class PetitionController {
         model.addAttribute("pageTitle", "Create Page");
         return "create"; // Returns the view name create to render the HTML page
     }
+
+    @RequestMapping("/search")
+    public String search(Model model){
+        model.addAttribute("title", "Search for a Petition");
+        model.addAttribute("pageTitle", "Search Page");
+        return "search"; // Returns the view name search to render the HTML page
+    }
+
+    @RequestMapping("/result")
+    public String result(Model model){
+        model.addAttribute("title", "Review Petition Result");
+        model.addAttribute("pageTitle", "Result Page");
+        return "result"; // Returns the view name result to render the HTML page
+    }
 }
