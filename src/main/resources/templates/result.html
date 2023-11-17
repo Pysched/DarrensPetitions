@@ -3,34 +3,73 @@
 <head th:replace="~{fragments :: head}"></head>
 <body>
 <nav th:replace="~{fragments :: navigation}"></nav>
-<h2 th:text="${pageTitle}"></h2>
 
-<div class="container">
-    <div class="row">
+<div class="container py-4">
+    <div class="row py-2">
         <h5 th:unless="${petition}">There is no petition to display</h5>
         <div class="col-8" th:if="${petition}">
             <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"> Petition: <span th:text="${petition.petitionTitle}"></span></h3>
+                </div>
                 <div class="card-body">
                     <div class="mb-2">
-                        <h5 class="card-title">Petition Title:</h5>
-                        <p th:text="${petition.petitionTitle}"></p>
+                        <h5 class="card-title">Description:</h5>
+                        <article th:text="${petition.petitionDescription}"></article>
                     </div>
                     <div class="mb-2">
-                        <h5 class="card-title">Petition Description:</h5>
-                        <p th:text="${petition.petitionDescription}"></p>
-                    </div>
-                    <div class="mb-2">
-                        <h5 class="card-title">Petition Author:</h5>
+                        <h5 class="card-title">Author:</h5>
                         <p th:text="${petition.petitionAuthor}"></p>
                     </div>
                     <div class="mb-2">
-                        <h5 class="card-title">Petition Signatures:</h5>
-                        <p th:text="${petition.petitionSignatures}"></p>
-                    </div>
-                    <div class="card-footer">
-                        <a th:href="@{/search}" class="btn btn-primary">Search</a>
+                        <h5 class="card-title">Signature Count:</h5>
+                        <p id="signatureCount" th:text="${petition.petitionSignatures}"></p>
                     </div>
                 </div>
+            </div>
+
+            <div class="mb-2">
+                <div th:each="signature : ${petition.signatures}" class="pt-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5> <span th:text="${signature.name}"></span> has joined the petition!</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <span class="fw-semibold fst-italic" th:text="${signature.name}"></span>
+                                signed up with their
+                                <span class="fw-semibold fst-italic" th:text="${signature.email}"></span> account!
+                            </p>
+                            <p>Welcome aboard!</p>
+                        </div>
+                        <div class="card-footer text-body-secondary">
+                            2 days ago
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5><span class="fw-normal" th:text="${petition.petitionTitle}"></span>
+                        needs your support!</h5>
+                </div>
+                <form method="post" th:object="${petition}">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2">Add Your Signature</h5>
+                        <div class="form-group">
+                            <label for="signupSignature">Signature:</label>
+                            <input type="text" class="form-control mb-2" id="signupSignature" name="signupSignature" th:field="*{signupSignature}" required>
+                            <label for="signupEmail">Email:</label>
+                            <input type="email" class="form-control" id="signupEmail" name="signupEmail" th:field="*{signupEmail}" required>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn btn-primary">Submit Signature</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

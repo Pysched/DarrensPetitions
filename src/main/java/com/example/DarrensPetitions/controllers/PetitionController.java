@@ -2,10 +2,7 @@ package com.example.DarrensPetitions.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +14,13 @@ public class PetitionController {
     public String index(Model model){
         model.addAttribute("title", "Darren's Petitions");
         model.addAttribute("pageTitle", "Index Page");
+
+        // Get a list of petition titles and add it to the model
+        List<String> petitionTitles = petitions.stream()
+                .map(Petition::getPetitionTitle)
+                .toList();
         model.addAttribute("petitions", petitions);
+        model.addAttribute("petitionTitles", petitionTitles);
         return "index";
     }
 
@@ -33,22 +36,12 @@ public class PetitionController {
             @RequestParam String petitionTitle,
             @RequestParam String petitionDescription,
             @RequestParam String petitionAuthor){
-        Petition Petition = new Petition(); //
-        Petition.setPetitionTitle(petitionTitle);
-        Petition.setPetitionDescription(petitionDescription);
-        Petition.setPetitionAuthor(petitionAuthor);
-
+        Petition Petition = new Petition(petitionTitle, petitionDescription, petitionAuthor); // Create a new petition object
         petitions.add(Petition); // Add the petition to the list of petitions
         return "redirect:"; // Redirect to index page
     }
 
-    @RequestMapping("/search")
-    public String search(Model model){
-        model.addAttribute("title", "Search for a Petition");
-        model.addAttribute("pageTitle", "Search Page");
-        return "search";
-    }
-    @RequestMapping("/result/{petitionTitle}")
+    @GetMapping("/result/{petitionTitle}")
     public String result(@PathVariable String petitionTitle, Model model){
         model.addAttribute("title", "Review Petition Result");
         model.addAttribute("pageTitle", "Result Page");
@@ -69,5 +62,26 @@ public class PetitionController {
             return "index";
         }
 
+    }
+
+    @PostMapping("/result/{petitionTitle}") // Handle the POST request to sign a petition
+    public String processSignature(@PathVariable String petitionTitle, @ModelAttribute("petition") Petition petition) {
+        for (Petition p : petitions) {
+            if (p.getPetitionTitle().equals(petitionTitle)) {
+                // Create a new Signature object
+                Signature signature = new Signature(petition.getSignupSignature(), petition.getSignupEmail());
+                p.addSignature(signature); // Add the signature to the signatures list & increment the number of signatures
+
+                return "redirect:/result/" + petitionTitle;
+            }
+        }
+        return "index"; // Error handling - return to index page
+    }
+
+    @RequestMapping("/search")
+    public String search(Model model){
+        model.addAttribute("title", "Search for a Petition");
+        model.addAttribute("pageTitle", "Search Page");
+        return "search"; // Map to "search.html"
     }
 }
