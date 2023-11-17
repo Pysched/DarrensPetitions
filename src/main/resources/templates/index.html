@@ -7,9 +7,16 @@
 
 <div class="container">
     <div class="row">
-        <ul>
-            <li th:each="petition : ${petitions}" th:text="${petition}"></li>
-        </ul>
+        <div class="col-12">
+            <h5 th:unless="${petitions} and ${petitions.size()}">There are no Petitions to view at present, add one or come back later...</h5>
+        </div>
+        <div class="col-12">
+            <ul>
+                <li th:each="petition : ${petitions}">
+                    <a th:href="@{/result/{petitionTitle}(petitionTitle=${petition.petitionTitle})}" th:text="${petition.petitionTitle}"></a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 

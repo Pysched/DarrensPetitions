@@ -5,6 +5,37 @@
 <nav th:replace="~{fragments :: navigation}"></nav>
 <h2 th:text="${pageTitle}"></h2>
 
+<div class="container">
+    <div class="row">
+        <h5 th:unless="${petition}">There is no petition to display</h5>
+        <div class="col-8" th:if="${petition}">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-2">
+                        <h5 class="card-title">Petition Title:</h5>
+                        <p th:text="${petition.petitionTitle}"></p>
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="card-title">Petition Description:</h5>
+                        <p th:text="${petition.petitionDescription}"></p>
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="card-title">Petition Author:</h5>
+                        <p th:text="${petition.petitionAuthor}"></p>
+                    </div>
+                    <div class="mb-2">
+                        <h5 class="card-title">Petition Signatures:</h5>
+                        <p th:text="${petition.petitionSignatures}"></p>
+                    </div>
+                    <div class="card-footer">
+                        <a th:href="@{/search}" class="btn btn-primary">Search</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <footer th:replace="~{fragments :: footer}"></footer>
 </body>
 </html>
