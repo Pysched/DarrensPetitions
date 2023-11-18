@@ -38,7 +38,7 @@ public class PetitionController {
             @RequestParam String petitionAuthor){
         Petition Petition = new Petition(petitionTitle, petitionDescription, petitionAuthor); // Create a new petition object
         petitions.add(Petition); // Add the petition to the list of petitions
-        return "redirect:"; // Redirect to index page
+        return "redirect:/"; // Redirect to index page
     }
 
     @GetMapping("/result/{petitionTitle}")
