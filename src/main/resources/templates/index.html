@@ -6,8 +6,8 @@
 
 <div class="container">
     <div class="row mt-5">
-        <div class="col-12 text-center">
-            <h5 th:if="${petitions} and ${petitions.size()}">There are no Petitions to view at present, add one or come back later...</h5>
+        <div class="col-12 text-center" th:if="${petitions} and ${petitions.size()}">
+            <h5>There are no Petitions to view at present, add one or come back later...</h5>
             <a class="btn btn-primary" id="createPetitionsLink" th:href="@{/create}">Create a Petition</a>
         </div>
         <div class="col-12" th:if="${petitions.size() > 0}">
@@ -23,10 +23,10 @@
                     <p class="mb-1"><span th:text="${petition.petitionDescription}"></span></p>
                     <small class="text-muted">Current Signatures: <span th:text="${petition.petitionSignatures}"></span></small>
                 </a>
+            </div>
         </div>
     </div>
 </div>
-
 <footer th:replace="~{fragments :: footer}"></footer>
 </body>
 </html>
