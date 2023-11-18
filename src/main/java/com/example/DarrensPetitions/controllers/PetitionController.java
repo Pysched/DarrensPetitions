@@ -13,7 +13,7 @@ public class PetitionController {
     @RequestMapping("/")
     public String index(Model model){
         model.addAttribute("title", "Darren's Petitions");
-        model.addAttribute("pageTitle", "Index Page");
+        model.addAttribute("pageTitle", "View Petitions");
 
         // Get a list of petition titles and add it to the model
         List<String> petitionTitles = petitions.stream()
@@ -27,7 +27,7 @@ public class PetitionController {
     @RequestMapping(value="create", method = RequestMethod.GET)
     public String create(Model model){
         model.addAttribute("title", "Create a Petition");
-        model.addAttribute("pageTitle", "Create Page");
+        model.addAttribute("pageTitle", "Create Petition");
         return "create";
     }
 

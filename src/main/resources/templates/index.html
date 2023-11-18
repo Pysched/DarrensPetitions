@@ -3,19 +3,23 @@
 <head th:replace="~{fragments :: head}"></head>
 <body>
 <nav th:replace="~{fragments :: navigation}"></nav>
-<h2 th:text="${pageTitle}"></h2>
 
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h5 th:unless="${petitions} and ${petitions.size()}">There are no Petitions to view at present, add one or come back later...</h5>
+    <div class="row mt-5">
+        <div class="col-12 text-center mt-5">
+            <h5 th:if="${petitions.isEmpty()}">There are no Petitions to view at present, add one or come back later...</h5>
         </div>
-        <div class="col-12">
-            <ul>
-                <li th:each="petition : ${petitions}">
-                    <a th:href="@{/result/{petitionTitle}(petitionTitle=${petition.petitionTitle})}" th:text="${petition.petitionTitle}"></a>
-                </li>
-            </ul>
+        <div class="col-12" th:if="${not petitions.isEmpty()}">
+        <h5>Petitions</h5>
+        <p>The following petitions have been added recently. Click on the links to read more about these petitions. You can add you name to those causes that matter most</p>
+        <div class="list-group">
+            <a
+                th:each="petition : ${petitions}"
+                th:href="@{/result/{petitionTitle}(petitionTitle=${petition.petitionTitle})}"
+                class="list-group-item list-group-item-action"
+                th:text="${petition.petitionTitle}"
+            >
+            </a>
         </div>
     </div>
 </div>
