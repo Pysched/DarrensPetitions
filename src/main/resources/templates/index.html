@@ -6,20 +6,23 @@
 
 <div class="container">
     <div class="row mt-5">
-        <div class="col-12 text-center mt-5">
-            <h5 th:if="${petitions.isEmpty()}">There are no Petitions to view at present, add one or come back later...</h5>
+        <div class="col-12 text-center">
+            <h5 th:if="${petitions} and ${petitions.size()}">There are no Petitions to view at present, add one or come back later...</h5>
+            <a class="btn btn-primary" id="createPetitionsLink" th:href="@{/create}">Create a Petition</a>
         </div>
-        <div class="col-12" th:if="${not petitions.isEmpty()}">
+        <div class="col-12" th:if="${petitions.size() > 0}">
         <h5>Petitions</h5>
         <p>The following petitions have been added recently. Click on the links to read more about these petitions. You can add you name to those causes that matter most</p>
-        <div class="list-group">
-            <a
-                th:each="petition : ${petitions}"
-                th:href="@{/result/{petitionTitle}(petitionTitle=${petition.petitionTitle})}"
-                class="list-group-item list-group-item-action"
-                th:text="${petition.petitionTitle}"
-            >
-            </a>
+        <hr>
+            <div class="list-group">
+                <a th:each="petition : ${petitions}" th:href="@{/result/{petitionTitle}(petitionTitle=${petition.petitionTitle})}" class="list-group-item list-group-item-action" >
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1"><span th:text="${petition.petitionTitle}"></span> - <small><span class="fst-italic" th:text="${petition.petitionAuthor}"></span></small></h5>
+                        <small>3 days ago</small>
+                    </div>
+                    <p class="mb-1"><span th:text="${petition.petitionDescription}"></span></p>
+                    <small class="text-muted">Current Signatures: <span th:text="${petition.petitionSignatures}"></span></small>
+                </a>
         </div>
     </div>
 </div>

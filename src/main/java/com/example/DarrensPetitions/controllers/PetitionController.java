@@ -1,11 +1,13 @@
 package com.example.DarrensPetitions.controllers;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class PetitionController {
@@ -78,10 +80,19 @@ public class PetitionController {
         return "index"; // Error handling - return to index page
     }
 
-    @RequestMapping("/search")
-    public String search(Model model){
+    @GetMapping("/search")
+    public String searchPage(Model model){
         model.addAttribute("title", "Search for a Petition");
-        model.addAttribute("pageTitle", "Search Page");
+        model.addAttribute("pageTitle", "Search Peitions");
         return "search"; // Map to "search.html"
+    }
+
+    @GetMapping("/search/{searchTerm}")
+    public ResponseEntity<List<Petition>> getFilteredPetitions(@PathVariable String searchTerm) {
+        // Perform filtering and return filtered petitions as JSON
+        List<Petition> searchResults = petitions.stream()
+                .filter(petition -> petition.getPetitionTitle().contains(searchTerm) || petition.getPetitionDescription().contains(searchTerm))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(searchResults);
     }
 }
