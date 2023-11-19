@@ -28,14 +28,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" id="viewPetitionsLink" aria-current="page" href="/">View all Petitions</a>
-                <a class="nav-link" id="createPetitionsLink" th:href="@{/create}">Create a Petition</a>
-                <a class="nav-link" id="searchPetitionsLink" th:href="@{/search}">Search for a Petition</a>
-                <a class="nav-link" id="resultPetitionsLink" th:href="@{/result}">Review search result</a>
+                <a class="nav-link view-link" th:href="@{/}">View all Petitions</a>
+                <a class="nav-link create-link" th:href="@{/create}">Create a Petition</a>
+                <a class="nav-link search-link" th:href="@{/search}">Search for a Petition</a>
             </div>
         </div>
     </div>
 </nav>
+<main>
+</main>
 
 
 <footer th:fragment="~{footer}" class="bg-dark text-white py-3 mt-auto">
