@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<nav th:replace="~{fragments :: navigation}"></nav>
+
+<div class="container mt-5">
+    <h2 th:text="${pageTitle}"></h2>
+    <div class="card">
+        <div class="card-header">
+            <h3>Results for "<span th:text="${searchTerm}"></span>"</h3>
+        </div>
+        <div class="card-body">
+            <p class="card-text">The following results closely match your search term:</p>
+            <div id="searchResults">
+                <ul class="list-group">
+                    <li th:each="petition : ${searchResults}" class="list-group-item">
+                        <a th:href="@{'/result/' + ${petition.petitionTitle}}" th:text="${petition.petitionTitle}"></a>
+                    </li>
+                    <p th:if="${noResults}">No results found for "<span th:text="${searchTerm}"></span>"</p>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

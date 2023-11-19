@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments :: head}"></head>
-<script th:src="@{search.js}"></script>
 <body>
 <nav th:replace="~{fragments :: navigation}"></nav>
-
-<script th:inline="javascript">
-    var petitions = /*[[${petitionList}]]*/ [];
-</script>
 
 <div class="container mt-5">
     <div class="card">
@@ -15,24 +10,14 @@
             <h3>Search for Petitions</h3>
         </div>
         <div class="card-body">
-            <p class="card-text">Search for petitions by title, description or author.</p>
-            <form id="searchForm" action="/search" method="GET">
+            <p class="card-text">Search for petitions by title, description, or author.</p>
+            <form id="searchForm" action="/results" method="GET">
                 <div class="input-group mb-3">
                     <label for="searchInput"></label>
                     <input type="text" id="searchInput" name="searchTerm" class="form-control" placeholder="Enter your search term..."/>
+                    <button type="submit" class="btn btn-primary">Search</button>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
-
-<div class="container mt-5">
-    <div class="card">
-        <div class="card-header">
-            <h3>Search Results</h3>
-        </div>
-        <div class="card-body">
-            <div id="searchResults"></div>
         </div>
     </div>
 </div>

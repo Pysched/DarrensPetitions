@@ -6,16 +6,12 @@
 
 <div class="container">
     <div class="row mt-5">
-        <div class="col-12 text-center" th:if="${petitions} and ${petitions.size()}">
-            <h5>There are no Petitions to view at present, add one or come back later...</h5>
-            <a class="btn btn-primary" id="createPetitionsLink" th:href="@{/create}">Create a Petition</a>
-        </div>
-        <div class="col-12" th:if="${petitions.size() > 0}">
+        <div class="col-12 " th:if="${petitions != null and not #lists.isEmpty(petitions)}">
         <h5>Petitions</h5>
-        <p>The following petitions have been added recently. Click on the links to read more about these petitions. You can add you name to those causes that matter most</p>
+        <p>The following petitions have been added recently. Click on the links to read more about these petitions. You can add your name to those causes that matter most</p>
         <hr>
             <div class="list-group">
-                <a th:each="petition : ${petitions}" th:href="@{/result/{petitionTitle}(petitionTitle=${petition.petitionTitle})}" class="list-group-item list-group-item-action" >
+                <a th:each="petition : ${petitions}" th:href="@{/result/{petitionTitle}(petitionTitle=${petition.petitionTitle})}" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1"><span th:text="${petition.petitionTitle}"></span> - <small><span class="fst-italic" th:text="${petition.petitionAuthor}"></span></small></h5>
                         <small>3 days ago</small>
@@ -24,6 +20,10 @@
                     <small class="text-muted">Current Signatures: <span th:text="${petition.petitionSignatures}"></span></small>
                 </a>
             </div>
+        </div>
+        <div class="col-12 " th:unless="${petitions != null and not #lists.isEmpty(petitions)}">
+            <h5>There are no Petitions to view at present, add one or come back later...</h5>
+            <a class="btn btn-primary" id="createPetitionsLink" th:href="@{/create}">Create a Petition</a>
         </div>
     </div>
 </div>
