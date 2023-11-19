@@ -7,7 +7,7 @@
 <div class="container py-4">
     <div class="row py-2">
         <h5 th:unless="${petition}">There is no petition to display</h5>
-        <div class="col-8" th:if="${petition}">
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9" th:if="${petition}">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title"> Petition: <span th:text="${petition.petitionTitle}"></span></h3>
@@ -27,7 +27,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="mb-2">
                 <div th:each="signature : ${petition.signatures}" class="pt-2">
                     <div class="card">
@@ -38,8 +37,7 @@
                             <p class="card-text">
                                 <span class="fw-semibold fst-italic" th:text="${signature.name}"></span>
                                 signed up with their
-                                <span class="fw-semibold fst-italic" th:text="${signature.email}"></span> account!
-                            </p>
+                                <span class="fw-semibold fst-italic" th:text="${signature.email}"></span> account!</p>
                             <p>Welcome aboard!</p>
                         </div>
                         <div class="card-footer text-body-secondary">
@@ -49,7 +47,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="card">
                 <div class="card-header">
