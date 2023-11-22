@@ -16,6 +16,18 @@ class DarrensPetitionsApplicationTests {
     private MockMvc mockMvc;
 
     @Test
+    // Test for the "index" endpoint
+    void testIndexView() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("index"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("pageTitle"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("petitions"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("petitionTitles"));
+    }
+
+    @Test
         // Test for the "create" endpoint
     void testCreatePage() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/create"))
