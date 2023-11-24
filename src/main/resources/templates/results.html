@@ -8,7 +8,7 @@
     <h5 th:text="${pageTitle}"></h5>
     <hr>
     <div class="card">
-        <div class="card-header bg-info">
+        <div class="card-header">
             <h5>Results for: "<span th:text="${searchTerm}"></span>"</h5>
         </div>
         <div class="card-body">
@@ -23,8 +23,8 @@
                 <p th:if="${noResultsMessage}" th:text="${noResultsMessage}"></p>
             </div>
         </div>
-        <div class="card-footer bg-info">
-            <a class="btn btn-success" th:href="@{/search}">Search again</a>
+        <div class="card-footer">
+            <a class="btn btn-primary" th:href="@{/search}">Search again</a>
         </div>
     </div>
 </div>
