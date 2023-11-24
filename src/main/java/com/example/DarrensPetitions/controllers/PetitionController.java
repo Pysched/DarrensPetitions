@@ -110,9 +110,9 @@ public class PetitionController {
         // Perform filtering and determine if results exist
         List<Petition> searchResults = petitions.stream()
                 // filter to only include petitions that contain the search term in the title or description
-                .filter(petition -> petition.getPetitionTitle().contains(searchTerm)
-                        || petition.getPetitionDescription().contains(searchTerm)
-                        || petition.getPetitionAuthor().contains(searchTerm))
+                .filter(petition -> petition.getPetitionTitle().toLowerCase().contains(searchTerm.toLowerCase())
+                        || petition.getPetitionDescription().toLowerCase().contains(searchTerm.toLowerCase())
+                        || petition.getPetitionAuthor().toLowerCase().contains(searchTerm.toLowerCase()))
                 .collect(Collectors.toList());
 
             // Add the search results to the model
