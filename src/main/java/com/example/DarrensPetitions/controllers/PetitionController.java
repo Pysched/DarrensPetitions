@@ -80,8 +80,12 @@ public class PetitionController {
 
     @GetMapping("/search") // Handle the initial search page request
     public String searchPage(Model model) {
+        int totalPetitions = petitions.size(); // Get the total number of petitions
+        int totalSignatures = petitions.stream().mapToInt(petition -> petition.getSignatures().size()).sum(); // Get the total number of signatures
         model.addAttribute("title", "Search for a Petition");
         model.addAttribute("pageTitle", "Search Petitions");
+        model.addAttribute("totalPetitions", totalPetitions);
+        model.addAttribute("totalSignatures", totalSignatures);
         return "search"; // Map to "search.html"
     }
 
@@ -98,11 +102,17 @@ public class PetitionController {
         model.addAttribute("pageTitle", "Search Results");
         model.addAttribute("searchTerm", searchTerm);
 
+        if(searchTerm == null || searchTerm.isEmpty()) {
+            model.addAttribute("noResultsMessage", "No search term entered. Please enter a search term.");
+            return "results"; // Redirect to search page if no search term is entered
+        }
+
         // Perform filtering and determine if results exist
         List<Petition> searchResults = petitions.stream()
                 // filter to only include petitions that contain the search term in the title or description
                 .filter(petition -> petition.getPetitionTitle().contains(searchTerm)
-                        || petition.getPetitionDescription().contains(searchTerm))
+                        || petition.getPetitionDescription().contains(searchTerm)
+                        || petition.getPetitionAuthor().contains(searchTerm))
                 .collect(Collectors.toList());
 
             // Add the search results to the model
